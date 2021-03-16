@@ -4,15 +4,15 @@ pipeline {
         stage('Build Image') { 
             steps {
                 echo 'Build docker image in local docker library...'
-                sh './gradlew bootBuildImage'
+                sh './gradlew bootBuildImage --imageName=tkg-spring-music'
             }
         }
         stage('Upload Image to Registry') { 
             steps {
                 echo 'Push image to Harbor...'
                 sh 'docker login harbor.tanzu.platformdemosm.com -u admin -p harbor_admin'
-                sh 'docker tag tkg-spring-music-pipeline:1.0 harbor.tanzu.platformdemosm.com/library/tkg-spring-music:${BUILD_NUMBER}'
-                sh 'docker tag tkg-spring-music-pipeline:1.0 harbor.tanzu.platformdemosm.com/library/tkg-spring-music:latest'
+                sh 'docker tag tkg-spring-music:1.0 harbor.tanzu.platformdemosm.com/library/tkg-spring-music:${BUILD_NUMBER}'
+                sh 'docker tag tkg-spring-music:1.0 harbor.tanzu.platformdemosm.com/library/tkg-spring-music:latest'
                 sh 'docker push harbor.tanzu.platformdemosm.com/library/tkg-spring-music:${BUILD_NUMBER}'
             }
         }
