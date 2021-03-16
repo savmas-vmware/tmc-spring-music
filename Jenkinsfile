@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Build Image') { 
             steps {
-                echo 'Build docker image in local docker library...'
-                sh './gradlew bootBuildImage'
+                echo 'Build docker image in local docker library...
             }
         }
         stage('Upload Image to Registry') { 
